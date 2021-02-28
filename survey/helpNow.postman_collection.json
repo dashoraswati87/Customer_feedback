@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "cd19c9ee-86e0-419c-b05f-48709fa4734b",
+		"name": "helpNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":6,\r\n    \"name\":\"Swati coordinator\",\r\n  \"email\":\"dashora.swati87+5@gmail.com\",\r\n  \"password\":\"Secret123#\",\r\n  \"gender\":\"female\",\r\n  \"age\":30,\r\n  \"userType\":\"COORDINATOR\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/create/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"create",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configure New Survey",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"surveyConfigId\":\"1\",\r\n    \"surveyName\":\"Feedback Survey phase 2\",\r\n    \"ageGroup\":\"Middle Age\",\r\n    \"surveyQuestions\":[\r\n        {\r\n            \"questionId\":1,\r\n            \"question\":\"Please write your experience.\"\r\n        },\r\n        {\r\n            \"questionId\":2,\r\n            \"question\":\"Please provide your valuable suggestion .\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/create/survey?userType=CUSTOMER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"create",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "userType",
+							"value": "CUSTOMER"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all survey for Respondent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/surveys?userId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"surveys"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save/ Update Survey responses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":1,\r\n    \"surveyConfigId\":1,\r\n    \"surveyConfig\" :{\r\n        \"id\": \"603a7b15143e093d1bcaa8fd\",\r\n        \"surveyConfigId\": 1,\r\n        \"surveyName\": \"Feedback Survey\",\r\n        \"gender\": \"female\",\r\n        \"ageGroup\": \"ADULT\",\r\n        \"surveyQuestions\": [\r\n            {\r\n                \"questionId\": 1,\r\n                \"question\": \"Please write your experience.\",\r\n                \"questionResponse\": \"Satisfied with services.\"\r\n            },\r\n            {\r\n                \"questionId\": 2,\r\n                \"question\": \"Please provide your valuable suggestion .\",\r\n                \"questionResponse\": \"Late responses of queries and communication is not good.\"\r\n            }\r\n        ]\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/save/survey",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"save",
+						"survey"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

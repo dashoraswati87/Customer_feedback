@@ -33,13 +33,13 @@ public class SurveyController {
 
 	@PostMapping("/create/survey")
 	public ResponseEntity<SurveyConfig> createSurvey(@RequestBody SurveyConfig surveyConfig,
-			@RequestParam String userType) {
-		
+			@RequestParam String userType) throws HelpNowException {
+
 		SurveyConfig surveyConfigData = surveyConfigService.createSurvey(surveyConfig, userType);
 		return new ResponseEntity<>(surveyConfigData, HttpStatus.CREATED);
 
 	}
-	
+
 	@GetMapping("/surveys")
 	public ResponseEntity<List<SurveyConfig>> getSurveysForRespondent(@RequestParam long userId) {
 
@@ -51,11 +51,10 @@ public class SurveyController {
 		}
 
 	}
-	
+
 	@PostMapping("/save/survey")
-	public ResponseEntity<SurveyResponse> createSurvey(@RequestBody SurveyResponse surveyResponse
-			) throws Exception {
-		
+	public ResponseEntity<SurveyResponse> createSurvey(@RequestBody SurveyResponse surveyResponse) throws HelpNowException {
+
 		SurveyResponse surveyResponseData = surveyConfigService.saveSurvey(surveyResponse);
 		return new ResponseEntity<>(surveyResponseData, HttpStatus.CREATED);
 

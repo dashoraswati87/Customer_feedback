@@ -32,7 +32,7 @@ public class UserService {
 	public User createUser(User user) throws HelpNowException {
 
 		if (user != null) {
-			
+
 			// Check if user already exists in the system with same email address.
 			User existinguser = userRepo.findByEmail(user.getEmail());
 			if (existinguser != null) {

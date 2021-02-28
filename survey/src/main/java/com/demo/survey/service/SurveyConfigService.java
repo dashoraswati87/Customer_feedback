@@ -6,8 +6,6 @@ package com.demo.survey.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.demo.survey.exception.HelpNowException;
@@ -69,7 +67,8 @@ public class SurveyConfigService {
 
 	/**
 	 * 
-	 * @param userId (this parameter will no longer needed as we will get loggedin user in future
+	 * @param userId (this parameter will no longer needed as we will get loggedin
+	 *               user in future
 	 * @return
 	 */
 	public List<SurveyConfig> getSurveysForRespondent(long userId) {
@@ -77,39 +76,40 @@ public class SurveyConfigService {
 		// get user details by userId
 		User user = userRepo.findByUserId(userId);
 		List<SurveyConfig> surveyConfigList = null;
-		if(user != null) {
-		String ageGroup = getAgeGroup(user.getAge());
-		surveyConfigList = surveyConfigRepo.findByGenderAndAgeGroup(user.getGender(), ageGroup);
+		if (user != null) {
+			String ageGroup = getAgeGroup(user.getAge());
+			surveyConfigList = surveyConfigRepo.findByGenderAndAgeGroup(user.getGender(), ageGroup);
 		}
-		
+
 		return surveyConfigList;
 
 	}
 
 	/**
-	 * This method saves the responses from Respondent (update if document already exists in collection)
+	 * This method saves the responses from Respondent (update if document already
+	 * exists in collection)
+	 * 
 	 * @param surveyName
 	 * @return SurveyResponse
 	 * @throws Exception
 	 */
 	public SurveyResponse saveSurvey(SurveyResponse SurveyResponse) throws HelpNowException {
-		
+
 		SurveyResponse newSurveyResponse = null;
 		try {
-			
-			SurveyResponse existingSurveyResponse = surveyResponseRepo.findBySurveyConfigIdAndUserId(SurveyResponse.getSurveyConfigId(), SurveyResponse.getUserId());
-			
-		 if(existingSurveyResponse != null) {
-			 existingSurveyResponse.setSurveyConfig(SurveyResponse.getSurveyConfig());
-			 existingSurveyResponse.setSurveyStatus("UPDATED");
-			 newSurveyResponse = surveyResponseRepo.save(existingSurveyResponse);
-		 }
-		 else {
-			 
-			SurveyResponse.setSurveyStatus("SUBMITTED");
-			newSurveyResponse = surveyResponseRepo.save(SurveyResponse);
-		 }
-			
+
+			SurveyResponse existingSurveyResponse = surveyResponseRepo
+					.findBySurveyConfigIdAndUserId(SurveyResponse.getSurveyConfigId(), SurveyResponse.getUserId());
+
+			if (existingSurveyResponse != null) {
+				existingSurveyResponse.setSurveyConfig(SurveyResponse.getSurveyConfig());
+				existingSurveyResponse.setSurveyStatus("UPDATED");
+				newSurveyResponse = surveyResponseRepo.save(existingSurveyResponse);
+			} else {
+
+				SurveyResponse.setSurveyStatus("SUBMITTED");
+				newSurveyResponse = surveyResponseRepo.save(SurveyResponse);
+			}
 
 		} catch (Exception e) {
 			throw new HelpNowException(e.getMessage());

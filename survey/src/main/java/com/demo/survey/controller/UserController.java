@@ -30,11 +30,11 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/create/users")
-	public ResponseEntity<User> createUser(@RequestBody User user) throws HelpNowException{
-		
-			User userData = userService.createUser(user);
-			return new ResponseEntity<>(userData, HttpStatus.CREATED);
-		
+	public ResponseEntity<User> createUser(@RequestBody User user) throws HelpNowException {
+
+		User userData = userService.createUser(user);
+		return new ResponseEntity<>(userData, HttpStatus.CREATED);
+
 	}
 
 	@GetMapping("/users")
